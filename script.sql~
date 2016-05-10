@@ -1,0 +1,2 @@
+INSERT INTO people (name, age,nationality,sex) VALUES ('Rick',27,'Scottish','M';
+)

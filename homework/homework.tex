@@ -1,0 +1,166 @@
+% Created 2016-05-09 Mon 22:00
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\author{mle}
+\date{\today}
+\title{homework}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{SQL Questions}
+\label{sec-1}
+
+First create a database called fringe$_{\text{shows}}$
+\begin{verbatim}
+#terminal
+psql
+create database fringe_shows;
+\q
+\end{verbatim}
+Populate the data using the script - fringeshows.sql
+\begin{verbatim}
+#terminal
+psql -d fringe_shows -f fringeshows.sql
+\end{verbatim}
+Using the SQL Database file given to you as the source of data to answer
+the questions. Copy the SQL command you have used to get the answer, and
+paste it below the question, along with the result they gave.
+
+\section{}
+\label{sec-2}
+
+\subsection{Revision of concepts that we've learnt in SQL today}
+\label{sec-2-1}
+
+\begin{enumerate}
+\item Select the names of all users.
+\begin{verbatim}
+SELECT * FROM users;
+\end{verbatim}
+
+\item Select the names of all shows that cost less than £15.
+\begin{verbatim}
+select name from shows where price < 15 ;
+\end{verbatim}
+\item Insert a user with the name "Val Gibson" into the users table.
+\begin{verbatim}
+insert into users (name) values ('Val Gibson');
+\end{verbatim}
+\item Select the id of the user with your name.
+\begin{verbatim}
+select id from users where name = 'Hamish Edmondson';
+\end{verbatim}
+\item Insert a record that Val Gibson wants to attend the show "Two girls,
+one cup of comedy".
+\end{enumerate}
+\begin{verbatim}
+INSERT INTO "shows_users" (show_id, user_id) VALUES ((SELECT id from shows where name = 'Two girls one cup of comedy'), (SELECT id from users where name = 'Val Gibson' ));
+\end{verbatim}
+\begin{enumerate}
+\item Updates the name of the "Val Gibson" user to be "Valerie Gibson".
+\end{enumerate}
+\begin{verbatim}
+UPDATE users SET name='Valerie Gibson' WHERE (name='Val Gibson');
+\end{verbatim}
+\begin{enumerate}
+\item Deletes the user with the name 'Valerie Gibson'.
+\end{enumerate}
+\begin{verbatim}
+DELETE from users where name='Valerie Gibson';
+\end{verbatim}
+\begin{enumerate}
+\item 
+\end{enumerate}
+\begin{verbatim}
+delete id from shows where id = (select id from shows_users where show_id is NULL);
+\end{verbatim}
+\subsection{Section 2}
+\label{sec-2-2}
+
+This section involves more complex queries. You will need to go and find
+out about aggregate funcions in SQL to answer some of the next
+questions.
+
+\begin{enumerate}
+\item Select the names and prices of all shows, ordered by price in
+ascending order.
+\end{enumerate}
+
+
+\begin{enumerate}
+\item Select the average price of all shows.
+\end{enumerate}
+
+
+\begin{enumerate}
+\item Select the price of the least expensive show.
+\end{enumerate}
+
+select name, show where price from shows where price IN(selct max price from shows)
+
+\begin{enumerate}
+\item Select the sum of the price of all shows.
+
+\item Select the sum of the price of all shows whose prices is less than
+£20.
+
+\item Select the name and price of the most expensive show.
+
+\item Select the name and price of the second from cheapest show.
+
+\item Select the names of all users whose names start with the letter "A".
+
+\item Select the names of users whose names contain "el".
+\end{enumerate}
+
+\subsection{Section 3}
+\label{sec-2-3}
+
+The following questions can be answered by using nested SQL statements
+but ideally you should learn about JOIN clauses to answer them.
+
+\begin{enumerate}
+\item Select the time for the Edinburgh Royal Tattoo.
+
+\item Select the number of users who want to see "Le Haggis".
+
+\item Select all of the user names and the count of shows they're going to
+see.
+
+\item SELECT all users who are going to a show at 13:30.
+\end{enumerate}
+
+\subsection{Hints}
+\label{sec-2-4}
+
+\begin{itemize}
+\item As with anything, if you get stuck, move on, then go back if you have
+time.
+\item Don't spend all night on it!
+\item Use resources online to solve harder ones - there are solutions to
+these questions that work with what we've learnt today, but other
+tools exist in SQL that could make the queries 'better' or 'easier'.
+\end{itemize}
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}
